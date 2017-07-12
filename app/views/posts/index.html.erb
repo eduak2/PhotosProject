@@ -1,0 +1,16 @@
+<h1>Post</h1>
+<% flash.each do |type, message|%>
+    <p>
+        <strong><em><%= message %></em></strong>
+    </p>
+<% end %>
+<%= link_to "Create", posts_new_path%>
+<% @post.each do |post|%>
+<div>
+<%= time_ago_in_words post.created_at %>
+    <p>
+    <%= post.description %>
+    </p>
+    <hr>
+</div>
+<%end%>
