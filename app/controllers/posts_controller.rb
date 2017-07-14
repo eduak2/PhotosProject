@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only:[:new , :create]
+
   def index
     @posts = Post.order(created_at: :desc).limit(10)
   end
@@ -6,6 +8,13 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
 
+  end
+  def show
+    begin
+      @post = Post.find(params[:id])
+    rescue => e 
+      redirect_to posts_path, flash: { alert: "The post has not been found" }
+    end
   end
 
   def create
